@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<title>计算机科学与技术学院(软件学院、网络安全学院)</title>
+<meta name="keywords" content="计算机科学与技术学院(软件学院、网络安全学院)">
+<!-- http://cs.hrbust.edu.cn/ -->
+<head>
+    <!-- 引入页签图标 -->
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+    <!-- 引入重置样式 -->
+    <link rel="stylesheet" href="./css1/reset.css">
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="./css1/index.css">
+<script>
+   document.addEventListener('DOMContentLoaded', function() {
+    /******************** 主图区轮播 ********************/
+    const mainSlides = document.querySelectorAll('.img-list li');
+    const mainPrevBtn = document.getElementById('left');
+    const mainNextBtn = document.getElementById('right');
+    let mainCurrentIndex = 0;
+    let mainInterval;
+    
+    function showMainSlide(index) {
+        mainSlides.forEach((slide, i) => {
+            slide.classList.toggle('current', i === index);
+        });
+    }
+    
+    mainPrevBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        mainCurrentIndex = (mainCurrentIndex - 1 + mainSlides.length) % mainSlides.length;
+        showMainSlide(mainCurrentIndex);
+        resetMainInterval();
+    });
+    
+    mainNextBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        mainCurrentIndex = (mainCurrentIndex + 1) % mainSlides.length;
+        showMainSlide(mainCurrentIndex);
+        resetMainInterval();
+    });
+    
+    function startMainInterval() {
+        mainInterval = setInterval(() => {
+            mainCurrentIndex = (mainCurrentIndex + 1) % mainSlides.length;
+            showMainSlide(mainCurrentIndex);
+        }, 5000);
+    }
+    
+    function resetMainInterval() {
+        clearInterval(mainInterval);
+        startMainInterval();
+    }
+    
+    document.querySelector('.main-pic').addEventListener('mouseenter', () => {
+        clearInterval(mainInterval);
+    });
+    
+    document.querySelector('.main-pic').addEventListener('mouseleave', () => {
+        startMainInterval();
+    });
+    
+    /******************** 内容区轮播 ********************/
+    const contentSlides = document.querySelectorAll('.left-img li');
+    const contentPrevBtn = document.querySelector('.left-img #left');
+    const contentNextBtn = document.querySelector('.left-img #right');
+    const contentDots = document.querySelectorAll('.left-img .dot a');
+    let contentCurrentIndex = 0;
+    let contentInterval;
+    
+    function showContentSlide(index) {
+        contentSlides.forEach((slide, i) => {
+            slide.classList.toggle('current', i === index);
+        });
+        
+        contentDots.forEach((dot, i) => {
+            dot.classList.toggle('active', i === index);
+        });
+    }
+    
+    contentPrevBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        contentCurrentIndex = (contentCurrentIndex - 1 + contentSlides.length) % contentSlides.length;
+        showContentSlide(contentCurrentIndex);
+        resetContentInterval();
+    });
+    
+    contentNextBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        contentCurrentIndex = (contentCurrentIndex + 1) % contentSlides.length;
+        showContentSlide(contentCurrentIndex);
+        resetContentInterval();
+    });
+    
+    // 点击导航点切换
+    contentDots.forEach((dot, index) => {
+        dot.addEventListener('click', function(e) {
+            e.preventDefault();
+            contentCurrentIndex = index;
+            showContentSlide(contentCurrentIndex);
+            resetContentInterval();
+        });
+    });
+    
+    function startContentInterval() {
+        contentInterval = setInterval(() => {
+            contentCurrentIndex = (contentCurrentIndex + 1) % contentSlides.length;
+            showContentSlide(contentCurrentIndex);
+        }, 3000);
+    }
+    
+    function resetContentInterval() {
+        clearInterval(contentInterval);
+        startContentInterval();
+    }
+    
+    document.querySelector('.left-img').addEventListener('mouseenter', () => {
+        clearInterval(contentInterval);
+    });
+    
+    document.querySelector('.left-img').addEventListener('mouseleave', () => {
+        startContentInterval();
+    });
+    
+    /******************** 初始化 ********************/
+    showMainSlide(mainCurrentIndex);
+    startMainInterval();
+    
+    showContentSlide(contentCurrentIndex);
+    startContentInterval();
+});
+</script>
+ </head>
+
+<body>
+
+<!-- 头部 -->
+<div class="header">
+    <!-- 版心 -->
+    <div class="container clearfix">
+        <!-- 左图片 -->
+        <div class="logo leftfix">
+            <img src="./images/最上面导航栏logo.png" alt="学校logo">
+        </div>
+        <!-- 右搜索栏 -->
+        <div class="search rightfix clearfix">
+            <div class="rightfix">
+                <a href="#" >旧版网站</a>
+            </div>
+            <form action="#" class="leftfix">
+                <input type="text" value="请输入关键字">
+                <button></button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- 导航栏 -->
+<div class="nav">
+    <div class="container clearfix">
+        <ul>
+            <li>
+                <a href="#">首页</a>
+            </li>
+            <li>
+                <a href="#">学院概述</a>
+                <div class="second-menu second-menu1">
+                    <dl class="">
+                        <dt><a href="">学院介绍</a></dt>
+                        <dt><a href="">现任领导</a></dt>
+                        <dt><a href="">委员会</a></dt>
+                        <dt><a href="">学院办公室</a></dt>
+                        <dt><a href="">学生工作办公室</a></dt>
+                        <dt><a href="">系、中心</a></dt>
+                    </dl>
+                </div>
+            </li>
+            <li>
+                <a href="#">师资队伍</a>
+                <div class="second-menu second-menu2">
+                    <dl>
+                        <dt><a href="">荣誉称号</a></dt>
+                        <dt><a href="">研究生导师</a></dt>
+                        <dt><a href="">教师队伍</a></dt>
+                        <dt><a href="">人才引进</a></dt>
+                    </dl>
+            </li>
+            <li>
+                <a href="#">人才培养</a>
+                <div class="second-menu second-menu3">
+                    <dl>
+                        <dt><a href="">本科生培养</a></dt>
+                        <dt><a href="">硕士生培养</a></dt>
+                        <dt><a href="">博士生培养</a></dt>
+                        <dt><a href="">现代产业学院</a></dt>
+                    </dl>
+            </li>
+            <li>
+                <a href="#">学科建设</a>
+                <div class="second-menu second-menu4">
+                    <dl>
+                        <dt><a href="">学科简介</a></dt>
+                        <dt><a href="">学科方向</a></dt>
+                        <dt><a href="">支撑平台</a></dt>
+                        <dt><a href="">博士后流动站</a></dt>
+                    </dl>
+            </li>
+            <li>
+                <a href="#">专业建设</a>
+                <div class="second-menu second-menu5">
+                    <dl>
+                        <dt><a href="">一流本科专业</a></dt>
+                        <dt><a href="">工程教育专业认证</a></dt>
+                        <dt><a href="">新工科</a></dt>
+                        <dt><a href="">学生指导</a></dt>
+                        <dt><a href="">研究成果</a></dt>
+                        <dt><a href="">省级实验教学示范中心</a></dt>
+                    </dl>
+            </li>
+            <li>
+                <a href="#">科学研究</a>
+                <div class="second-menu second-menu6">
+                    <dl>
+                        <dt><a href="">科研动态</a></dt>
+                        <dt><a href="">科研成果</a></dt>
+                    </dl>
+            </li>
+            <li>
+                <a href="#">党群工作</a>
+                <div class="second-menu second-menu7">
+                    <dl>
+                        <dt><a href="">基层党组织</a></dt>
+                        <dt><a href="">党建理论</a></dt>
+                        <dt><a href="">党建学习</a></dt>
+                        <dt><a href="">党建活动</a></dt>
+                        <dt><a href="">党建风采</a></dt>
+                        <dt><a href="">能力作风建设</a></dt>
+                        <dt><a href="">学习贯彻省十三次党代会精神</a></dt>
+                        <dt><a href="">喜迎二十大系列活动</a></dt>
+                    </dl>
+            </li>
+            <li>
+                <a href="#">学生工作</a>
+                <div class="second-menu second-menu8">
+                    <dl>
+                        <dt><a href="">团学组织</a></dt>
+                        <dt><a href="">学生党建</a></dt>
+                        <dt><a href="">学生活动</a></dt>
+                        <dt><a href="">心理健康</a></dt>
+                        <dt><a href="">青春榜样</a></dt>
+                    </dl>
+            </li>
+            <li>
+                <a href="#">招生就业</a>
+                <div class="second-menu second-menu9">
+                    <dl>
+                        <dt><a href="">本科生招生</a></dt>
+                        <dt><a href="">研究生招生</a></dt>
+                        <dt><a href="">就业工作</a></dt>
+                    </dl>
+            </li>
+            <li>
+                <a href="#">校友之家</a>
+                <div class="second-menu second-menu10">
+                    <dl>
+                        <dt><a href="">校友风采</a></dt>
+                        <dt><a href="">校庆专栏</a></dt>
+                    </dl>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<!-- 主图 -->
+<div class="main-pic">
+    <div class="container">
+        <ul class="img-list">
+            <li class="current">
+                <a href="#">
+                    <img src="./images/五四主图.jpg" />
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="./images/主图2.jpg" />
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="./images/主图3.jpg" />
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="./images/主图4.jpg" />
+                </a>
+            </li>
+        </ul>
+        <a href="javascript:;" id="left"><img src="./images/主图区箭头左.png" alt=""></a>
+        <a href="javascript:;" id="right"><img src="./images/主图区箭头右.png" alt=""></a>
+    </div>
+</div>
+
+<!-- 主要内容区1 -->
+<div class="main-content1 ">
+    <div class="container clearfix">            
+        <!-- 学院要闻 -->
+        <div class="news leftfix">
+            <!-- 上标题  -->
+            <div class="title clearfix">
+                <h3 class="leftfix"><span>学院要闻</span></h3>
+                <div class="more rightfix"><a href="#" >更多>></a></div>
+            </div>
+            <!-- 下内容 -->
+                <div class="item1 clearfix">
+                <!-- 左图 -->
+                    <div class="left-img leftfix">
+                    <ul>
+                        <li class="current">
+                            <img src="./images/小轮播图1.jpg" alt="">
+                            <h2><a href="#">校长刘侠、副校长杜军深入学院开展学科...</a>
+                        </li>
+                        <li>
+                            <img src="./images/小轮播图2.jpg" alt="">
+                            <h2><a href="#">智能信息处理及应用省重点实验室师生参...</a>
+                        </li>
+                        <li>
+                            <img src="./images/小轮播图3.png" alt="">
+                            <h2><a href="#">【访企拓岗促就业】校党委副书记赵水杉...</a>
+                        </li>
+                        <li>
+                            <img src="./images/小轮播图4.png" alt="">
+                            <h2><a href="#">【迎评进行时】计算机科学与技术学院召...</a>
+                        </li>
+                        <li>
+                            <img src="./images/小轮播图5.jpg" alt="">
+                            <h2><a href="#">计算机学院召开2025届本科生就业推进会...</a>
+                        </li>
+
+                    </ul>
+                    <a href="javascript:;" id="left"><</a>
+                    <a href="javascript:;" id="right">></a>
+                    <!-- 
+                    导航点
+                    -->
+                    <div class="dot">
+                        <a class="active" href="javascript:;"></a>
+                        <a href="javascript:;"></a>
+                        <a href="javascript:;"></a>
+                        <a href="javascript:;"></a>
+                        <a href="javascript:;"></a>
+                    </div>
+                </div>    
+                <div class="right-word rightfix clearfix">
+                    <div class="leftfix"><a href="#" >校党委书记赵琳深入学院调研指导</a></div>
+                    <div class="leftfix"><a href="#" >校长刘侠、副校长杜军深入学院开展学科建设</a></div>
+                    <span class="leftfix">为深入贯彻落实学校“学科建设年”精神和相关工作部署...</span>
+                    <ul class="leftfix">
+                        <li><a href="">智能信息处理及应用省重点实验室师生参加第二届...</a></li>
+                        <li><a href="">【访企拓岗促就业】校党委副书记赵水杉带队赴青...</a></li>
+                        <li><a href="">【迎评进行时】计算机科学与技术学院召开全院教...</a></li>
+                        <li><a href="">计算机学院召开2025届本科生就业推进会暨院长书...</a></li>
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+        <!-- 通知公告 -->
+        <div class="notice rightfix clearfix ">
+            <!-- 上标题 -->
+            <div class="title clearfix">
+                <h3 class="leftfix"><span>通知公告</span></h3>
+                <div class="more rightfix"><a href="#" >更多>></a></div>
+            </div>
+            <!-- 公告 -->
+            <div class="notice-item notice-item1 leftfix clearfix">
+                <!-- 左日期 -->
+                <div class="leftfix">
+                <div class="day">10</div>
+                <div class="mouth">2025-04</div>
+                </div>
+                <!-- 右公告 -->
+                <div class="notice-news rightfix">
+                    <a href="">计算机科学与技术学院2025年硕士研究生调剂公告（第二批次）</a>
+                </div>
+            </div>
+            <div class="notice-item notice-item2 leftfix clearfix">
+                <!-- 日期 -->
+                <div class="leftfix">
+                    <div class="day">01</div>
+                    <div class="mouth">2025-04</div>
+                </div>
+                    <!-- 公告 -->
+                <div class="notice-news rightfix">
+                    <a href="">计算机科学与技术学院2025年黑龙江省普通高等学校“优秀毕业生”...</a>
+                </div>
+            </div>
+            <div class="notice-item notice-item3 leftfix clearfix">
+                <!-- 左日期 -->
+                <div class="leftfix">
+                    <div class="day">29</div>
+                    <div class="mouth">2025-03</div>
+                    </div>
+                    <!-- 右公告 -->
+                    <div class="notice-news rightfix">
+                        <a href="">计算机科学与技术学院 2025年硕士研究生调剂公告 （第一批次）</a>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 主要内容区2 -->
+<div class="main-content2">
+    <div class="container clearfix">
+        <!-- 党建活动 -->
+        <div class="activity leftfix">
+            <!-- 上标题  -->
+            <div class="title clearfix ">
+                <h3 class="leftfix"><span>党建活动</span></h3>
+                <div class="more rightfix"><a href="#" >更多>></a></div>
+            </div>
+            <!-- 下内容 -->
+            <ul>
+                <li class="clearfix">
+                    <a href="" class="leftfix">学院党委多措并举开展系列主题党日活...</a>
+                    <span class="rightfix">07/02</span>
+                </li>
+                <li class="clearfix">
+                    <a href="" class="leftfix">计算机科学与技术学院开展师德师风教...</a>
+                    <span class="rightfix">05/22</span>
+                </li>
+                <li class="clearfix">
+                    <a href="" class="leftfix">计算机科学与技术学院党校圆满完成20...</a>
+                    <span class="rightfix">05/20</span>
+                </li>
+                <li class="clearfix">
+                    <a href="" class="leftfix">以党纪学习教育推动中心工作——计算机...</a>
+                    <span class="rightfix">05/20</span>
+                </li>
+                <li class="clearfix">
+                    <a href="" class="leftfix">计算机科学与技术学院召开辅导员队伍...</a>
+                    <span class="rightfix">05/15</span>
+                </li>
+                <li class="clearfix">
+                    <a href="" class="leftfix">学院召开党委理论学习中心组学习会议</a>
+                    <span class="rightfix">04/16</span>
+                </li>
+                <li class="clearfix">
+                    <a href="" class="leftfix">学院召开党委理论学习中心组学习会议</a>
+                    <span class="rightfix">03/29</span>
+                </li>
+            </ul>
+        </div>
+        <!-- 科研动态 -->
+        <div class="research leftfix">
+            <!-- 上标题  -->
+            <div class="title clearfix ">
+                <h3 class="leftfix"><span>科研动态</span></h3>
+                <div class="more rightfix"><a href="#" >更多>></a></div>
+            </div>
+                    <!-- 下内容 -->
+                    <ul>
+                    <li class="clearfix">
+                        <a href="" class="leftfix">磨砥刻厉，日新月异——计算机学院举办科研...</a>
+                        <span class="rightfix">09/11</span>
+                    </li>
+                    <li class="clearfix">
+                        <a href="" class="leftfix">【访企拓岗促就业、科研先行谈合作】 计...</a>
+                        <span class="rightfix">06/05</span>
+                    </li>
+                    <li class="clearfix">
+                        <a href="" class="leftfix">【访企拓岗促就业、科研先行谈合作】 计...</a>
+                        <span class="rightfix">06/01</span>
+                    </li>
+                    <li class="clearfix">
+                        <a href="" class="leftfix">【访企拓岗促就业、科研先行谈合作】计算...</a>
+                        <span class="rightfix">04/26</span>
+                    </li>
+                    <li class="clearfix">
+                        <a href="" class="leftfix">学院召开2023年度国家自然基金申报研讨会</a>
+                        <span class="rightfix">03/02</span>
+                    </li>
+                    <li class="clearfix">
+                        <a href="" class="leftfix">学院召开2023年度国家自然基金申报研讨会</a>
+                        <span class="rightfix">10/28</span>
+                    </li>
+                    <li class="clearfix">
+                        <a href="" class="leftfix">学院组织召开国家自然科学基金申报指导会</a>
+                        <span class="rightfix">10/26</span>
+                    </li>
+                </ul>
+        </div>
+        <!-- 常用下载 -->
+        <div class="download leftfix">
+            <!-- 上标题  -->
+            <div class="title clearfix ">
+                <h3 class="leftfix"><span>常用下载</span></h3>
+                <div class="more rightfix"><a href="#" >更多>></a></div>
+            </div>
+                    <!-- 下内容 -->
+                    <ul>
+                    <li class="clearfix">
+                        <a href="" class="leftfix">组织机构代码证、法人证书、法人身份证复...</a>
+                        <span class="rightfix">05/25</span>
+                    </li>
+                    <li class="clearfix">
+                        <a href="" class="leftfix">哈尔滨理工大学用印审批表</a>
+                        <span class="rightfix">05/25</span>
+                    </li>
+                    <li class="clearfix">
+                        <a href="" class="leftfix">补修重修课程免听申请表</a>
+                        <span class="rightfix">05/10</span>
+                    </li>
+                    <li class="clearfix">
+                        <a href="" class="leftfix">缓考申请</a>
+                        <span class="rightfix">05/10</span>
+                    </li>
+                    <li class="clearfix">
+                        <a href="" class="leftfix">绩点排名证明</a>
+                        <span class="rightfix">05/10</span>
+                    </li>
+                    <li class="clearfix">
+                        <a href="" class="leftfix">学籍异动申请表</a>
+                        <span class="rightfix">05/10</span>
+                    </li>
+                    <li class="clearfix">
+                        <a href="" class="leftfix">计算机科学与技术学院研究生成果认定的规...</a>
+                        <span class="rightfix">01/14</span>
+                    </li>
+                </ul>
+        </div>
+    </div>
+</div>
+
+<!-- 师生风采区 -->
+<div class="spirit">
+<div class="container">
+    <!-- 上标题  -->
+    <div class="title clearfix ">
+        <h3 class="leftfix"><span>师生风采</span></h3>
+        <div class="more rightfix"><a href="#" >更多>></a></div>
+    </div>
+    <!-- 下图片 -->
+        <div class="spirit-img clearfix">
+        <div class="img leftfix">
+            <img src="./images/攀高峰.png" alt="">
+            <div>守正创新攀高峰 团结奋进开新...</div>
+        </div>
+        <div class="img leftfix">
+            <img src="./images/躬身耕耘.png" alt="">
+            <div>“躬身耕耘爱生如子，行为师范卓...</div>
+        </div>
+        <div class="img leftfix">
+            <img src="./images/计算机学院.png" alt="">
+            <div>计算机学院党员学生志愿者在防疫...</div>
+        </div>
+        <div class="img leftfix">
+            <img src="./images/做守护祖国.jpg" alt="">
+            <div>做守护祖国网络天空的雄鹰 ——...</div>
+        </div>
+        </div>
+</div>
+</div>
+<!-- 专业介绍区 -->
+<div class="party-building">
+    <div class="container clearfix">
+        <!-- 上标题  -->
+        <div class="title clearfix ">
+            <h3 class="leftfix"><span>专业介绍</span></h3>
+        </div>
+        <!-- 下 -->
+            <ul class="clearfix">
+            <li><a href="">网络空间安全</a></li>
+            <li><a href="">计算机科学与技术</a></li>
+            <li><a href="">网络工程</a></li>
+            <li><a href="">软件工程</a></li>
+            <li><a href="">集成电路设计与集成系统</a></li>
+            <li><a href="">互联网工程</a></li>
+            </ul>
+            <a href="#" class="rightfix"><img src="./images/icon_more_1.gif" alt=""></a>
+    </div>
+</div>
+<!-- 校内资源区 -->
+<div class="resources">
+<div class="container">
+    <!-- 上标题  -->
+    <div class="title clearfix ">
+        <h3 class="leftfix"><span>校内资源</span></h3>
+        
+    </div>
+    <!-- 下图片 -->
+        <ul class="clearfix">
+        <li><a href="#" class="ul-pic1">校内办公</a></li>
+        <li><a href="#" class="ul-pic2">图书馆</a></li>
+        <li><a href="#" class="ul-pic3">理工邮箱</a></li>
+        <li><a href="#" class="ul-pic4">教务在线</a></li>
+        <li><a href="#" class="ul-pic5">教师主页</a></li>
+        <li><a href="#" class="ul-pic6">新闻网</a></li>
+        <li><a href="#" class="ul-pic7">ACM-ICPC</a></li>
+        </ul>
+</div>
+</div>
+<!-- 页脚 -->
+<div class="footer">
+<div class="container">
+    <ul class="foot-top  clearfix">
+        <li><div>友情链接</div></li>
+        <li><div>国家教育局</div></li>
+        <li><div>国家自然科学基金委</div></li>
+        <li><div>黑龙江省教育厅</div></li>
+        <li><div>黑龙江省科技厅</div></li>
+        <li><div>中国学术会议网</div></li>
+        <li><div>学习强国</div></li>
+        <li><div>国际在线</div></li>
+        <li><div>智慧树</div></li>
+    </ul>
+    <div class="notice">
+        <span>Copyright ©版权声明©2022  计算机科学与技术学院  版权所有</span><br>
+        <span>哈尔滨理工大学&nbsp;哈尔滨市南岗区学府路52号</span>
+        <ul class="clearfix">
+            <li class="leftfix">
+                <img src="./images/页脚计科芳华.jpg" alt="">
+                <span>计科芳华</span>
+            </li>
+            <li class="leftfix">
+                <img src="./images/页脚学校公众号.png" alt="">
+                <span>学校公众号</span>
+            </li>
+        </ul>
+    </div>
+
+</div>
+</div>
+</body>
+</html>
