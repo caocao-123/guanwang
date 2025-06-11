@@ -19,6 +19,7 @@
     const mainNextBtn = document.getElementById('right');
     let mainCurrentIndex = 0;
     let mainInterval;
+    let mainIsPaused = false;
     
     function showMainSlide(index) {
         mainSlides.forEach((slide, i) => {
@@ -26,37 +27,48 @@
         });
     }
     
-    mainPrevBtn.addEventListener('click', function(e) {
-        e.preventDefault();
+    function nextMainSlide() {
+        mainCurrentIndex = (mainCurrentIndex + 1) % mainSlides.length;
+        showMainSlide(mainCurrentIndex);
+    }
+    
+    function prevMainSlide() {
         mainCurrentIndex = (mainCurrentIndex - 1 + mainSlides.length) % mainSlides.length;
         showMainSlide(mainCurrentIndex);
-        resetMainInterval();
+    }
+    
+    mainPrevBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        prevMainSlide();
+        // 用户操作后，重新开始完整的间隔周期
+        if (!mainIsPaused) {
+            clearInterval(mainInterval);
+            startMainInterval();
+        }
     });
     
     mainNextBtn.addEventListener('click', function(e) {
         e.preventDefault();
-        mainCurrentIndex = (mainCurrentIndex + 1) % mainSlides.length;
-        showMainSlide(mainCurrentIndex);
-        resetMainInterval();
+        nextMainSlide();
+        // 用户操作后，重新开始完整的间隔周期
+        if (!mainIsPaused) {
+            clearInterval(mainInterval);
+            startMainInterval();
+        }
     });
     
     function startMainInterval() {
-        mainInterval = setInterval(() => {
-            mainCurrentIndex = (mainCurrentIndex + 1) % mainSlides.length;
-            showMainSlide(mainCurrentIndex);
-        }, 5000);
-    }
-    
-    function resetMainInterval() {
-        clearInterval(mainInterval);
-        startMainInterval();
+        clearInterval(mainInterval); // 确保清除之前的计时器
+        mainInterval = setInterval(nextMainSlide, 5000);
     }
     
     document.querySelector('.main-pic').addEventListener('mouseenter', () => {
+        mainIsPaused = true;
         clearInterval(mainInterval);
     });
     
     document.querySelector('.main-pic').addEventListener('mouseleave', () => {
+        mainIsPaused = false;
         startMainInterval();
     });
     
@@ -67,6 +79,7 @@
     const contentDots = document.querySelectorAll('.left-img .dot a');
     let contentCurrentIndex = 0;
     let contentInterval;
+    let contentIsPaused = false;
     
     function showContentSlide(index) {
         contentSlides.forEach((slide, i) => {
@@ -78,18 +91,32 @@
         });
     }
     
-    contentPrevBtn.addEventListener('click', function(e) {
-        e.preventDefault();
+    function nextContentSlide() {
+        contentCurrentIndex = (contentCurrentIndex + 1) % contentSlides.length;
+        showContentSlide(contentCurrentIndex);
+    }
+    
+    function prevContentSlide() {
         contentCurrentIndex = (contentCurrentIndex - 1 + contentSlides.length) % contentSlides.length;
         showContentSlide(contentCurrentIndex);
-        resetContentInterval();
+    }
+    
+    contentPrevBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        prevContentSlide();
+        if (!contentIsPaused) {
+            clearInterval(contentInterval);
+            startContentInterval();
+        }
     });
     
     contentNextBtn.addEventListener('click', function(e) {
         e.preventDefault();
-        contentCurrentIndex = (contentCurrentIndex + 1) % contentSlides.length;
-        showContentSlide(contentCurrentIndex);
-        resetContentInterval();
+        nextContentSlide();
+        if (!contentIsPaused) {
+            clearInterval(contentInterval);
+            startContentInterval();
+        }
     });
     
     // 点击导航点切换
@@ -98,27 +125,25 @@
             e.preventDefault();
             contentCurrentIndex = index;
             showContentSlide(contentCurrentIndex);
-            resetContentInterval();
+            if (!contentIsPaused) {
+                clearInterval(contentInterval);
+                startContentInterval();
+            }
         });
     });
     
     function startContentInterval() {
-        contentInterval = setInterval(() => {
-            contentCurrentIndex = (contentCurrentIndex + 1) % contentSlides.length;
-            showContentSlide(contentCurrentIndex);
-        }, 3000);
-    }
-    
-    function resetContentInterval() {
-        clearInterval(contentInterval);
-        startContentInterval();
+        clearInterval(contentInterval); // 确保清除之前的计时器
+        contentInterval = setInterval(nextContentSlide, 3000);
     }
     
     document.querySelector('.left-img').addEventListener('mouseenter', () => {
+        contentIsPaused = true;
         clearInterval(contentInterval);
     });
     
     document.querySelector('.left-img').addEventListener('mouseleave', () => {
+        contentIsPaused = false;
         startContentInterval();
     });
     
@@ -126,8 +151,10 @@
     showMainSlide(mainCurrentIndex);
     startMainInterval();
     
-    showContentSlide(contentCurrentIndex);
-    startContentInterval();
+    if (contentSlides.length > 0) {
+        showContentSlide(contentCurrentIndex);
+        startContentInterval();
+    }
 });
 </script>
  </head>
